@@ -1,0 +1,100 @@
+body {
+	background: #ffff;
+}
+
+.nav-tab-active,
+.nav-tab-active:hover,
+.nav-tab-active:focus,
+.nav-tab-active:focus:active {
+    border-bottom: .063rem solid #ffff;
+    background: #fff;
+}
+
+a.pressburst-logo {
+	display: block;
+}
+
+a.pressburst-logo img {
+	height: 5rem;
+	width: auto;
+	display: block;
+	background: #fff;
+	margin: 1rem .5rem .5rem .5rem;
+}
+
+.pressburst-grid-row {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.25rem;
+}
+
+.pressburst-grid-row li picture {
+	display: block;
+}
+
+.pressburst-grid-row li picture img {
+	display: block;
+	max-width: 100%;
+}
+
+.pressburst-grid-row li h2 {
+	font-size: 1.375rem;
+	line-height: 1.375;
+}
+
+.pressburst-grid-row li p {
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+.pressburst-grid-row li .main-content {
+	display: none;
+}
+
+.pressburst-grid-row li button {
+	cursor: pointer;
+}
+
+table.imported_posts {
+    border-collapse: collapse;
+    margin-top: 1.875rem;
+}
+
+table.imported_posts td,
+table.imported_posts th {
+	border: .063rem solid #c3c4c7;
+    padding: .5rem 1rem;
+}
+
+table.imported_posts th {
+    background: #dcdcde;
+    color: #50575e;
+}
+
+.form-table th {
+	width: 13.75rem;
+}
+
+@media only screen and (max-width: 80em) {
+
+	.pressburst-grid-row {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+}
+
+@media only screen and (max-width: 62em) {
+
+	.pressburst-grid-row {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+}
+
+@media only screen and (max-width: 48em) {
+
+	.pressburst-grid-row {
+		grid-template-columns: repeat(1, 1fr);
+	}
+
+}

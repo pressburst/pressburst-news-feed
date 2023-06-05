@@ -1,0 +1,36 @@
+.pressburst-grid-row {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: .625rem;
+}
+
+.pressburst-grid-row > a {
+	flex: 0 0 25%;
+}
+
+.pressburst-grid-row > a img {
+	width: 100%;
+	height: auto;
+	display: block;
+	transition: .25s ease-in-out;
+}
+
+.pressburst-grid-row > a:hover > img {
+	opacity: .75;
+}
+
+@media only screen and (max-width: 62em) {
+
+	.pressburst-grid-row {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+}
+
+@media only screen and (max-width: 48em) {
+
+	.pressburst-grid-row {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+}
