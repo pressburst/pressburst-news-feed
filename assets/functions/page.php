@@ -257,7 +257,7 @@ function pressburst_content__import() {
     $server_url = sanitize_url($_SERVER["REQUEST_URI"]);
     if(esc_attr( $options['key'] ) && esc_attr( $options['channel_code'] )) {
         echo wpautop(esc_html__('Import Pressburst posts by clicking the button below.','pressburst-news-feed'));
-        echo '<a class="button button-primary" href="'.esc_html__($server_url).'&import_posts=true">'.esc_html__('Import Next 10 Posts','pressburst-news-feed').'</a>';
+        echo '<a class="button button-primary" href="'.esc_url($server_url).'&import_posts=true">'.esc_html__('Import Next 10 Posts','pressburst-news-feed').'</a>';
         if(sanitize_text_field( isset($_GET['import_posts']) ) ) {
             pressburst_sync_posts();
         }
@@ -293,12 +293,10 @@ function pressburst_content__pressburst_posts() {
 
         if(sanitize_text_field(isset($_GET['posts_per_page']))) {
             $ppp = sanitize_text_field($_GET['posts_per_page']);
-            if(!is_int($ppp)) {
-              $ppp = 18;
-            }
+            $ppp = intval($ppp);
         }
 
-        echo '<form action="'.esc_html__($server_url).'" method="GET">';
+        echo '<form action="'.esc_url($server_url).'" method="GET">';
         echo '<input type="hidden" id="page" name="page" value="pressburst-news-feed">';
         echo '<input type="hidden" id="tab" name="tab" value="posts">';
         echo '<label for="posts_per_page">'.esc_html__('Show Posts','pressburst-news-feed').'</label>&nbsp;';

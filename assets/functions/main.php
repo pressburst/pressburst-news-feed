@@ -70,7 +70,7 @@ function pressburst_sync_posts() {
     }
 
     // Request API feed
-    $request = wp_remote_get( 'https://api.pressburst.app/v3/public/news/'.esc_html__($pressburst_api_channel_code).'/?apikey='.esc_html__($pressburst_api_key).'&per_page=99999999' );
+    $request = wp_remote_get( 'https://api.pressburst.app/v3/public/news/'.esc_html($pressburst_api_channel_code).'/?apikey='.esc_html($pressburst_api_key).'&per_page=99999999' );
 
     // Return if error
     if( is_wp_error( $request ) ) {
@@ -126,7 +126,7 @@ function pressburst_sync_posts() {
             $grid_image_url = sanitize_url($image->filesslurl);
             $grid_image_url_square = sanitize_url($image->sizes->square->filesslurl);
             $grid_image_name = sanitize_title($image->filename);
-            $body_images .= '<a data-fancybox="pressburst-gallery" href="'.esc_url($grid_image_url).'"><img src="'.esc_url($grid_image_url_square).'" alt="'.esc_html__($grid_image_name).'"/></a>';
+            $body_images .= '<a data-fancybox="pressburst-gallery" href="'.esc_url($grid_image_url).'"><img src="'.esc_url($grid_image_url_square).'" alt="'.esc_html($grid_image_name).'"/></a>';
           }
         }
 
@@ -136,12 +136,12 @@ function pressburst_sync_posts() {
         }
 
         $new_post = array(
-          'post_title' => esc_html__($title),
+          'post_title' => esc_html($title),
           'post_excerpt' => wp_kses_post($standfirst),
           'post_content' => wp_kses_post($body.$body_images.$tag),
           'post_status' => 'draft',
-          'post_date' => esc_html__($date),
-          'post_author' => esc_html__($user_id),
+          'post_date' => esc_html($date),
+          'post_author' => esc_html($user_id),
           'post_type' => 'post'
         );
 
@@ -264,12 +264,10 @@ function pressburst_get_post_feed() {
 
   if(sanitize_text_field(isset($_GET['posts_per_page']))) {
     $ppp = sanitize_text_field($_GET['posts_per_page']);
-    if(!is_int($ppp)) {
-      $ppp = 18;
-    }
+    $ppp = intval($ppp);
   }
 
-  $request = wp_remote_get( 'https://api.pressburst.app/v3/public/news/'.esc_html__($pressburst_api_channel_code).'/?apikey='.esc_html__($pressburst_api_key).'&per_page='.esc_html($ppp) );
+  $request = wp_remote_get( 'https://api.pressburst.app/v3/public/news/'.esc_html($pressburst_api_channel_code).'/?apikey='.esc_html($pressburst_api_key).'&per_page='.esc_attr($ppp) );
 
   if( is_wp_error( $request ) ) {
     return false;
@@ -287,27 +285,27 @@ function pressburst_get_post_feed() {
       $image = sanitize_url($item->media[0]->sizes->header->filesslurl);
       $title = sanitize_text_field($item->headline);
       $date = sanitize_text_field($item->publishdate);
-      $standfirst = wp_kses_post($item->standfirst);
-      $body = wp_kses_post($item->body);
+      $standfirst = $item->standfirst;
+      $body = $item->body;
 
       echo '<li>';
       echo '<article>';
       echo '<picture>';
       echo '<img src="'.esc_url($image).'">';
       echo '<picture>';
-      echo '<h2>'.esc_html__($title).'</h2>';
-      echo '<span>'.esc_html__(date('d/m/Y',strtotime($date))).'</span>';
+      echo '<h2>'.esc_html($title).'</h2>';
+      echo '<span>'.esc_html(date('d/m/Y',strtotime($date))).'</span>';
 
       if($standfirst) {
         echo '<div class="intro-content">';
-        echo wpautop($standfirst);
+        echo wp_kses_post(wpautop($standfirst));
         echo '<button class="button button-primary">'.esc_html__('Read More','pressburst-news-feed').'</button>';
         echo '</div>';
         echo '<div class="main-content">';
-        echo wpautop($body);
+        echo wp_kses_post(wpautop($body));
         echo '</div>';
       } else {
-        echo wpautop($body);
+        echo wp_kses_post(wpautop($body));
       }
 
       echo '</article>';

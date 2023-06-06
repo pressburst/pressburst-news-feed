@@ -25,7 +25,7 @@
 
 	$server_url = sanitize_url($_SERVER["REQUEST_URI"]);
 
-	if (strpos(esc_html__($server_url), "pressburst-news-feed")) {
+	if (strpos(esc_url($server_url), "pressburst-news-feed")) {
 		require_once plugin_dir_path( __FILE__ ) . '/assets/functions/styles-and-scripts-backend.php';
 	}
 
